@@ -1,5 +1,5 @@
 const input = [1, 2, 3, 1, 6, 1, 5, 1, 6, 4, 3, 1, 5, 4, 3, 1, 6, 3, 1, 2, 3, 4, 3, 2, 2, 2, 3, 4, 1, 1];
-const pages = 5;
+const pages = 3;
 const loaded = [];
 const hits = Array(pages).fill(0);
 const latests = [];
@@ -57,15 +57,15 @@ function setLatests(value) {
 
 function checkLeastRecently(arrayOfPos) {
   let leastRecentlyPos;
-  let leastRecentlyI = pages;
+  let leastRecentlyI = latests.length;
   for (const pos of arrayOfPos) {
-    for (let i = 0; i < latests.length; i++) {
+    for (let i = leastRecentlyI - 1; i >= 0 ; i--) {
       if (loaded[pos] === latests[i] && i < leastRecentlyI) {
         leastRecentlyI = i;
-        leastRecentlyPos = pos;
+        leastRecentlyPos = parseInt(pos);
       }
     }
-    if (leastRecentlyPos === undefined) return pos;
+    // if (leastRecentlyPos === undefined) return pos;
   }
   return leastRecentlyPos;
 }

@@ -62,17 +62,17 @@ function setLatests(value) {
 
 function checkLeastRecently(arrayOfPos) {
   let leastRecentlyPos;
-  let leastRecentlyI = pages;
+  let leastRecentlyI = latests.length;
   for (const pos of arrayOfPos) {
-    for (let i = 0; i < latests.length; i++) {
+    for (let i = leastRecentlyI - 1; i >= 0 ; i--) {
       if (loaded[pos] === latests[i] && i < leastRecentlyI) {
         leastRecentlyI = i;
-        leastRecentlyPos = pos;
+        leastRecentlyPos = parseInt(pos);
       }
     }
-    if (leastRecentlyPos === undefined) return pos;
+    // if (leastRecentlyPos === undefined) return pos;
   }
   return leastRecentlyPos;
 }
 
-lfu()
+lfu();
