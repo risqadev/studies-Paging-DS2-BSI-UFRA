@@ -9,18 +9,22 @@ function lfu() {
     const existingPos = alreadyExistsPos(value);
     if(existingPos < 0) {
       let posToInsert;
-      const lessFrequent = lessFrequentPos();
-      if (lessFrequent.length === 1) {
-        posToInsert = lessFrequent[0];
-      } else if (lessFrequent.length > 1) {
-        posToInsert = checkLeastRecently(lessFrequent);
+      if (loaded.length < pages) {
+        posToInsert = loaded.length
+      } else {
+        const lessFrequent = lessFrequentPos();
+        if (lessFrequent.length === 1) {
+          posToInsert = lessFrequent[0];
+        } else if (lessFrequent.length > 1) {
+          posToInsert = checkLeastRecently(lessFrequent);
+        }
       }
       loaded[posToInsert] = value;
       hits[posToInsert] = 1;
     } else {
       hits[existingPos]++;
     }
-    setLatestsList(value);
+    setLatests(value);
   }
   // end
   console.log(loaded);
@@ -47,7 +51,7 @@ function lessFrequentPos() {
   return lfPos;
 }
 
-function setLatestsList(value) {
+function setLatests(value) {
   for (let i = 0; i < latests.length; i++) {
     if (value === latests[i]) {
       latests.splice(i, 1);
