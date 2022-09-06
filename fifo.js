@@ -1,7 +1,7 @@
 const input = [1, 2, 3, 1, 6, 1, 5, 1, 6, 4, 3, 1, 5, 4, 3, 1, 6, 3, 1, 2, 3, 4, 3, 2, 2, 2, 3, 4, 1, 1];
 const pages = 3;
 const loaded = [];
-const latests = [];
+const history = [];
 
 function fifo() {
   for (const value of input) {
@@ -13,8 +13,8 @@ function fifo() {
       } else {
         posToInsert = checkLeastRecently();
       }
-      setLatestsList(value);
       loaded[posToInsert] = value;
+      setHistory(value);
     }
   }
   // end
@@ -27,21 +27,21 @@ function alreadyExistsPos(value) {
   return -1;
 }
 
-function setLatestsList(value) {
-  for (let i = 0; i < latests.length; i++) {
-    if (value === latests[i]) {
-      latests.splice(i, 1);
+function setHistory(value) {
+  for (let i = 0; i < history.length; i++) {
+    if (value === history[i]) {
+      history.splice(i, 1);
     }
   }
-  latests[latests.length] = value;
+  history[history.length] = value;
 }
 
 function checkLeastRecently() {
   let leastRecentlyPos;
-  let leastRecentlyI = latests.length;
+  let leastRecentlyI = history.length;
   for (const pos in loaded) {
     for (let i = leastRecentlyI - 1; i >= 0 ; i--) {
-      if (loaded[pos] === latests[i] && i < leastRecentlyI) {
+      if (loaded[pos] === history[i] && i < leastRecentlyI) {
         leastRecentlyI = i;
         leastRecentlyPos = parseInt(pos);
       }

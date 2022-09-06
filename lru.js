@@ -1,8 +1,7 @@
 const input = [1, 2, 3, 1, 6, 1, 5, 1, 6, 4, 3, 1, 5, 4, 3, 1, 6, 3, 1, 2, 3, 4, 3, 2, 2, 2, 3, 4, 1, 1];
 const pages = 3;
 const loaded = [];
-const hits = Array(pages).fill(0);
-const latests = [];
+const history = [];
 
 function lru() {
   for (const value of input) {
@@ -15,11 +14,8 @@ function lru() {
         posToInsert = checkLeastRecently(loaded);
       }
       loaded[posToInsert] = value;
-      hits[posToInsert] = 1;
-    } else {
-      hits[existingPos]++;
     }
-    setLatests(value);
+    setHistory(value);
   }
   // end
   console.log(loaded);
@@ -31,36 +27,21 @@ function alreadyExistsPos(value) {
   return -1;
 }
 
-function lessFrequentPos() {
-  let lfPos = [];
-  let lfHits = 1000;
-  for (let i = 0; i < pages; i++) {
-    if (hits[i] === lfHits && lfHits > 0) {
-      lfPos.push(i);
-    } else if (hits[i] < lfHits) {
-      lfHits = hits[i];
-      lfPos = [];
-      lfPos[0] = i;
-    } 
-  }
-  return lfPos;
-}
-
-function setLatests(value) {
-  for (let i = 0; i < latests.length; i++) {
-    if (value === latests[i]) {
-      latests.splice(i, 1);
+function setHistory(value) {
+  for (let i = 0; i < history.length; i++) {
+    if (value === history[i]) {
+      history.splice(i, 1);
     }
   }
-  latests[latests.length] = value;
+  history[history.length] = value;
 }
 
 function checkLeastRecently(arrayOfPos) {
   let leastRecentlyPos;
-  let leastRecentlyI = latests.length;
+  let leastRecentlyI = history.length;
   for (const pos of arrayOfPos) {
     for (let i = leastRecentlyI - 1; i >= 0 ; i--) {
-      if (loaded[pos] === latests[i] && i < leastRecentlyI) {
+      if (loaded[pos] === history[i] && i < leastRecentlyI) {
         leastRecentlyI = i;
         leastRecentlyPos = parseInt(pos);
       }
@@ -70,4 +51,4 @@ function checkLeastRecently(arrayOfPos) {
   return leastRecentlyPos;
 }
 
-lru()
+lru();

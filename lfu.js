@@ -2,7 +2,7 @@ const input = [1, 2, 3, 1, 6, 1, 5, 1, 6, 4, 3, 1, 5, 4, 3, 1, 6, 3, 1, 2, 3, 4,
 const pages = 3;
 const loaded = [];
 const hits = Array(pages).fill(0);
-const latests = [];
+const history = [];
 
 function lfu() {
   for (const value of input) {
@@ -10,7 +10,7 @@ function lfu() {
     if(existingPos < 0) {
       let posToInsert;
       if (loaded.length < pages) {
-        posToInsert = loaded.length
+        posToInsert = loaded.length;
       } else {
         const lessFrequent = lessFrequentPos();
         if (lessFrequent.length === 1) {
@@ -24,7 +24,7 @@ function lfu() {
     } else {
       hits[existingPos]++;
     }
-    setLatests(value);
+    setHistory(value);
   }
   // end
   console.log(loaded);
@@ -51,21 +51,21 @@ function lessFrequentPos() {
   return lfPos;
 }
 
-function setLatests(value) {
-  for (let i = 0; i < latests.length; i++) {
-    if (value === latests[i]) {
-      latests.splice(i, 1);
+function setHistory(value) {
+  for (let i = 0; i < history.length; i++) {
+    if (value === history[i]) {
+      history.splice(i, 1);
     }
   }
-  latests[latests.length] = value;
+  history[history.length] = value;
 }
 
 function checkLeastRecently(arrayOfPos) {
   let leastRecentlyPos;
-  let leastRecentlyI = latests.length;
+  let leastRecentlyI = history.length;
   for (const pos of arrayOfPos) {
     for (let i = leastRecentlyI - 1; i >= 0 ; i--) {
-      if (loaded[pos] === latests[i] && i < leastRecentlyI) {
+      if (loaded[pos] === history[i] && i < leastRecentlyI) {
         leastRecentlyI = i;
         leastRecentlyPos = parseInt(pos);
       }
