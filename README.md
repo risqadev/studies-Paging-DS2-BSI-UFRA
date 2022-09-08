@@ -6,7 +6,7 @@ Implementations of some page replacement algorithms using Javascript, including:
 - LRU (Least Recently Used);
 - LFU (Least Frequently Used).
 
-Run with Node.js passing the correspondent file. Example:
+Set parameters in ```inputs.js``` and run the correspondent file with Node.js. Example:
 
 ```
 node fifo.js
