@@ -1,4 +1,9 @@
-const input = [1, 2, 3, 1, 6, 1, 5, 1, 6, 4, 3, 1, 5, 4, 3, 1, 6, 3, 1, 2, 3, 4, 3, 2, 2, 2, 3, 4, 1, 1];
+const input = [10, 15, 7, 23, 18, 4, 36];
+
+// pagination
 const pages = 5;
 
-module.exports = { input, pages };
+// heap
+const heapType = 'max';
+
+module.exports = { input, pages, heapType };
