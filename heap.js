@@ -1,15 +1,18 @@
 const { input, heapType } = require('./inputs');
 
+const sequence = !!process.argv[3] && process.argv[3].split(',').map(item => Number(item)) || input;
+const type = process.argv[2] || heapType;
+
 let arranje = [null];
 
 function heap () {
-  for (const value of input) {
+  for (const value of sequence) {
     arranje = insert(value, arranje);
   }
 }
 heap();
 
-console.log(arranje, isHeap(heapType, arranje));
+console.log(arranje, isHeap(type, arranje));
 
 
 function getFather(pos) {
@@ -19,7 +22,7 @@ function getFather(pos) {
 function insert(element, arranje) {
   const n = arranje.length;
   arranje[n] = element;
-  const arranjeMod = promove(heapType, arranje, n);
+  const arranjeMod = promove(type, arranje, n);
   return arranjeMod;
 }
 
