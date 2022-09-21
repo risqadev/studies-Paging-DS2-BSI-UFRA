@@ -1,9 +1,9 @@
-const input = [10, 15, 7, 23, 18, 4, 36];
+const input = [ null, 2, 9, 19, 13, 10, 45, 27, 76, 33, 44, 15];
 
 // pagination
 const pages = 5;
 
 // heap
-const heapType = 'max';
+const heapType = 'min';
 
 module.exports = { input, pages, heapType };
