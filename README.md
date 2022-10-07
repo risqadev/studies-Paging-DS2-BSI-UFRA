@@ -1,4 +1,4 @@
-# Data structures using Javascript
+# Paging Data structures using Javascript
 
 Implementations of some page replacement algorithms using Javascript, including:
 
