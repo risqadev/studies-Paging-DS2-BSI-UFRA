@@ -3,27 +3,34 @@ const { input, heapType } = require('./inputs');
 const sequence =  !! process.argv[3]
                   && process.argv[3].split(',').map(item => Number(item))
                   || input;
-const type = process.argv[2] || heapType;
-
-let arranje = [null];
+// const type = process.argv[2] || heapType;
 
 const demovePos = 1;
 
-console.log(sequence, isHeap(type, sequence));
+console.log('Original:');
+console.log(sequence);
 
-function heap () {
-  if (!isHeap(type, sequence)) {
-    for (const value of sequence) {
+function heap (sequence, type) {
+  const seq = {...sequence};
+  let arranje;
+  if (!isHeap(type, seq)) {
+    for (const value of seq) {
       arranje = insert(value, arranje);
     }
   }
-  if (isHeap(type, sequence) && !!demovePos) {
-    arranje = demove(type, sequence, demovePos);
+  if (isHeap(type, seq) && !!demovePos) {
+    arranje = demove(type, seq, demovePos);
   }
+  return arranje;
 }
-heap();
 
-console.log(arranje, isHeap(type, arranje));
+console.log('Heap mínimo:');
+const heapMin = heap(sequence, 'min');
+console.log(heapMin, isHeap('min', heapMin));
+
+console.log('Heap máximo:');
+const heapMax = heap(sequence, 'max');
+console.log(heapMax, isHeap('min', heapMax));
 
 
 function getFatherPos(pos) {
